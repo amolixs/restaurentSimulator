@@ -35,6 +35,7 @@ public class MainMenu implements Menu {
 	public void print() {
 		System.out.println("1- Menu employé");
 		System.out.println("2- Menu client");
+		System.out.println("3- Quit");
 		System.out.print("[*] Votre choix : ");
 	}
 
@@ -55,6 +56,10 @@ public class MainMenu implements Menu {
 				System.out.println("Comming soun...");
 			break;
 			
+			case 3:
+				System.out.println("Merci et à bientot !");
+			break;
+			
 			default:
 				System.out.println("Veuillez entrez une option valide");
 			break;
@@ -62,8 +67,11 @@ public class MainMenu implements Menu {
 	}
 
 	public void run() {
-		print();
-		int choix = getChoice();
-		choixManagement(choix);
+		int choix;
+		do {
+			print();
+			choix = getChoice();
+			choixManagement(choix);
+		}while(choix != 3);
 	}
 }
