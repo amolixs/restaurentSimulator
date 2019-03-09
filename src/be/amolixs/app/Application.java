@@ -36,7 +36,7 @@ public class Application {
 	 */
 	public void run() {
 		printLogo();
-		mainMenu.run();
+		mainMenu.loop();
 	}
 	
 	/**

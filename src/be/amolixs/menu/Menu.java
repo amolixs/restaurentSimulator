@@ -20,13 +20,16 @@ public interface Menu {
 	 * 		Choix entré par l'utilisateur
 	 */
 	int getChoice();
-	
-	
-	void choixManagement(int choix);
+	 
+	/**
+	 * @author amolixs
+	 * Méthod qui permet de gérer les choixs d'options des menus
+	 */
+	void choiceManagement(int choix);
 	
 	/**
-	 * Méthod qui permet de lancer le menu
+	 * Boucle des menus
 	 * @author amolixs
 	 */
-	void run();
+	void loop();
 }

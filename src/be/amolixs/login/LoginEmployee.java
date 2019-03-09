@@ -50,7 +50,7 @@ public class LoginEmployee {
 				String hashFile = retrievePassInThoTheFilePass();
 				if (verifPassword(hash, hashFile) && username.equals("admin")) {
 					Process clear = Runtime.getRuntime().exec("clear");
-					menuEmployee.print();
+					menuEmployee.loop();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

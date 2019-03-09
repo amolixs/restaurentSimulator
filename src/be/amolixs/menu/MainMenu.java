@@ -46,7 +46,7 @@ public class MainMenu implements Menu {
 		return choixInput;
 	}
 
-	public void choixManagement(int choix) {
+	public void choiceManagement(int choix) {
 		switch (choix) {
 			case 1:
 				login.printLoginPage();
@@ -66,12 +66,12 @@ public class MainMenu implements Menu {
 		}
 	}
 
-	public void run() {
-		int choix;
+	public void loop() {
+		int choix = 0;
 		do {
 			print();
 			choix = getChoice();
-			choixManagement(choix);
+			choiceManagement(choix);
 		}while(choix != 3);
 	}
 }
