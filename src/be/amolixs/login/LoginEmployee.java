@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import be.amolixs.crypt.Crypt;
 import be.amolixs.menu.MenuEmployee;
+import be.amolixs.password.Password;
 
 /**
  * Classe qui permet de gérer la connexion des employés
@@ -25,11 +26,18 @@ public class LoginEmployee {
 	private MenuEmployee menuEmployee;
 	
 	/**
+	 * Object de type password
+	 * @author amolixs
+	 */
+	private Password password;
+	
+	/**
 	 * Constructeur par default
 	 * @author amolixs
 	 */
 	public LoginEmployee() {
 		this.menuEmployee = new MenuEmployee();
+		this.password = new Password();
 	}
 	
 	/**
@@ -38,14 +46,13 @@ public class LoginEmployee {
 	 */
 	public void printLoginPage() {
 		String username;
-		String password;
+		String passwordInput;
 		Scanner sc  = new Scanner(System.in);
 		System.out.print("[*] Entrez le username : ");
 		username = sc.nextLine();
-		System.out.print("[*] Entrez le mot de passe : ");
-		password = sc.nextLine();
+		passwordInput = password.inputPassword();
 		try {
-			String hash = Crypt.cryptMd5(password);
+			String hash = Crypt.cryptMd5(passwordInput);
 			try {
 				String hashFile = retrievePassInThoTheFilePass();
 				if (verifPassword(hash, hashFile) && username.equals("admin")) {
