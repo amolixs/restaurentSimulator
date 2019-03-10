@@ -1,11 +1,17 @@
 package be.amolixs.product;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -20,11 +26,6 @@ import org.json.JSONObject;
  * @author amolixs
  */
 public class ProductEditor {
-	/**
-	 * Object json
-	 * @author amolixs
-	 */
-	private JSONObject productJson;
 	
 	/**
 	 * Object de type Product représentant le produit
@@ -38,7 +39,6 @@ public class ProductEditor {
 	 */
 	public ProductEditor() {
 		this.product = new Product();
-		this.productJson = new JSONObject();
 	}
 	
 	/**
@@ -69,19 +69,34 @@ public class ProductEditor {
 	 * 		Savoir si le produit est buvable ou non
 	 */
 	void saveProduct(String name, int price, boolean isDrinked) {
-		JSONObject productJson = new JSONObject();
+		JSONObject product = new JSONObject();
+		String textJSon;
+		product.put("name", name);
+		product.put("price", price);
+		product.put("isDrinked", isDrinked);
+		textJSon = product.toString() + ",";
 		try {
-			productJson.put("name", product.getName());
-			productJson.put("price", product.getPrice());
-			productJson.put("isDrinked", product.isDrinked());
-			try {
-				Files.write(Paths.get("json/product.json"), productJson.toString().getBytes(), StandardOpenOption.APPEND);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (JSONException e) {
+			Files.write(Paths.get("json/temp.json"), textJSon.getBytes(), StandardOpenOption.APPEND);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Méthode qui permet d'écrire le fichier json de suavegarde pour les produits
+	 * @author amolixs
+	 * @throws IOException 
+	 */
+	String writeJsonFileSave() throws IOException {
+		File file = new File("json/temp.json");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		String line;
+		String textJsonTemp = "";
+		while ((line=reader.readLine())!=null) {
+			textJsonTemp += line;
+		}
+		reader.close();
+		return textJsonTemp;
 	}
 	
 	/**
@@ -101,13 +116,45 @@ public class ProductEditor {
 	}
 	
 	/**
+	 * Méthod qui permet d'écrire le fichier json de sauvegarde final
+	 * @throws IOException
+	 * 			Exception pour l'ouverture du fichier
+	 */
+	public void writeJsonFile() throws IOException {
+		String textJsonTemp = writeJsonFileSave();
+		File file = new File("json/product.json");
+		FileWriter writer = new FileWriter(file);
+		writer.write("[");
+		writer.write(textJsonTemp);
+		writer.write("]");
+		writer.flush();
+		writer.close();
+	}
+	
+	/**
 	 * Méthode qui permet de lire tous les produits
 	 * @author amolixs
 	 * @throws IOException 
 	 */
 	public void readAll() throws IOException {
+		writeJsonFile();
 		List<String> listNameProduct = getValuesForGivenKey(readFileJson(), "name");
-		System.out.println(listNameProduct.toString());
+		List<String> listPriceProduct = getValuesForGivenKey(readFileJson(), "price");
+		printAllName(listNameProduct);
+	}
+	
+	/**
+	 * Méthode qui permet d'affiché la liste des noms des produits
+	 * @author amolixs
+	 * @param listName
+	 * 		Liste contenant les noms des produits à affiché
+	 */
+	public void printAllName(List<String> listName) {
+		System.out.println("=======================NAME=======================");
+		for (String nameProduct : listName) {
+			System.out.println(nameProduct);
+		}
+		System.out.println("==================================================");
 	}
 	
 	/**

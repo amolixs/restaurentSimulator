@@ -1,0 +1,13 @@
+		JSONObject productJson = new JSONObject();
+		try {
+			productJson.put("name", product.getName());
+			productJson.put("price", product.getPrice());
+			productJson.put("isDrinked", product.isDrinked());
+			try {
+				Files.write(Paths.get("json/product.json"), productJson.toString().getBytes(), StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
