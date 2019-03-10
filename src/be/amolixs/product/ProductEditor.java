@@ -140,7 +140,10 @@ public class ProductEditor {
 		writeJsonFile();
 		List<String> listNameProduct = getValuesForGivenKey(readFileJson(), "name");
 		List<String> listPriceProduct = getValuesForGivenKey(readFileJson(), "price");
+		List<String> listIsDrinkedProduct = getValuesForGivenKey(readFileJson(), "isDrinked");
 		printAllName(listNameProduct);
+		printAllPrice(listPriceProduct);
+		printAllIsDrinked(listIsDrinkedProduct);
 	}
 	
 	/**
@@ -153,6 +156,38 @@ public class ProductEditor {
 		System.out.println("=======================NAME=======================");
 		for (String nameProduct : listName) {
 			System.out.println(nameProduct);
+		}
+		System.out.println("==================================================");
+	}
+	
+	/**
+	 * Méthode qui permet d'affiché la liste des prix des produits
+	 * @author amolixs
+	 * @param listPrice
+	 * 		Liste contenant le prix de tous les produits
+	 */
+	public void printAllPrice(List<String> listPrice) {
+		System.out.println("=======================PRIX=======================");
+		for (String nameProduct : listPrice) {
+			System.out.println(nameProduct);
+		}
+		System.out.println("==================================================");
+	}
+	
+	/**
+	 * Méthode qui permet d'affiché si le produit est buvable ou non
+	 * @author amolixs
+	 * @param listIsDrinked
+	 * 		Liste contenant des false/true représentant si le produit est buvable
+	 * 		ou non
+	 */
+	public void printAllIsDrinked(List<String> listIsDrinked) {
+		System.out.println("=======================BOISSON=======================");
+		for (String isDrinked : listIsDrinked) {
+			if (isDrinked.equals("true")) 
+				System.out.println("Boisson");
+			else
+				System.out.println("Pas boisson");
 		}
 		System.out.println("==================================================");
 	}
