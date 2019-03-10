@@ -153,11 +153,13 @@ public class ProductEditor {
 	 * 		Liste contenant les noms des produits à affiché
 	 */
 	public void printAllName(List<String> listName) {
-		System.out.println("=======================NAME=======================");
-		for (String nameProduct : listName) {
-			System.out.println(nameProduct);
+		if (listName.isEmpty() != true) {
+			System.out.println("=======================NAME=======================");
+			for (String nameProduct : listName) {
+				System.out.println(nameProduct);
+			}
+			System.out.println("==================================================");
 		}
-		System.out.println("==================================================");
 	}
 	
 	/**
@@ -167,11 +169,13 @@ public class ProductEditor {
 	 * 		Liste contenant le prix de tous les produits
 	 */
 	public void printAllPrice(List<String> listPrice) {
-		System.out.println("=======================PRIX=======================");
-		for (String nameProduct : listPrice) {
-			System.out.println(nameProduct);
+		if (listPrice.isEmpty() != true) {
+			System.out.println("=======================PRIX=======================");
+			for (String nameProduct : listPrice) {
+				System.out.println(nameProduct);
+			}
+			System.out.println("==================================================");
 		}
-		System.out.println("==================================================");
 	}
 	
 	/**
@@ -182,14 +186,16 @@ public class ProductEditor {
 	 * 		ou non
 	 */
 	public void printAllIsDrinked(List<String> listIsDrinked) {
-		System.out.println("=======================BOISSON=======================");
-		for (String isDrinked : listIsDrinked) {
-			if (isDrinked.equals("true")) 
-				System.out.println("Boisson");
-			else
-				System.out.println("Pas boisson");
+		if (listIsDrinked.isEmpty() != true) {
+			System.out.println("=======================BOISSON====================");
+			for (String isDrinked : listIsDrinked) {
+				if (isDrinked.equals("true")) 
+					System.out.println("Boisson");
+				else
+					System.out.println("Pas boisson");
+			}
+			System.out.println("==================================================");
 		}
-		System.out.println("==================================================");
 	}
 	
 	/**
@@ -216,6 +222,20 @@ public class ProductEditor {
 		}
 		
 		return json;
+	}
+	
+	/**
+	 * Méthode qui permet de supprimé tous les produits
+	 * @author amolixs
+	 * @throws IOException 
+	 * 		Exception pour l'ouverture du fichier
+	 * 
+	 */
+	public void deleteAllProduct() throws IOException {
+		File file = new File("json/temp.json");
+		FileWriter writer = new FileWriter(file);
+		writer.write("");
+		writer.close();
 	}
 	
 	void update() {

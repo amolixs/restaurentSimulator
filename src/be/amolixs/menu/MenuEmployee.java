@@ -18,7 +18,8 @@ public class MenuEmployee implements Menu {
 		System.out.println("2- Lire les produit");
 		System.out.println("3- Mettre un jour un produit");
 		System.out.println("4- Supprimer un produit");
-		System.out.println("5- Back");
+		System.out.println("5- Supprimer tous les produits");
+		System.out.println("6- Back");
 		System.out.print("[*] Votre choix : ");
 	}
 
@@ -46,14 +47,22 @@ public class MenuEmployee implements Menu {
 			break;
 			
 			case 2:
-			try {
-				productEditor.readAll();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				try {
+					productEditor.readAll();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			break;
 			
 			case 5:
+				try {
+					productEditor.deleteAllProduct();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			break;
+			
+			case 6:
 				System.out.println("Merci et à bientot !");
 			break;
 	
@@ -69,6 +78,6 @@ public class MenuEmployee implements Menu {
 			print();
 			choix = getChoice();
 			choiceManagement(choix);
-		}while(choix != 5);
+		}while(choix != 6);
 	}
 }
